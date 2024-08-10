@@ -2,6 +2,8 @@ import axios from "axios";
 import pLimit from "p-limit";
 import { useState } from "react";
 
+const URL = import.meta.env.VITE_URL;
+
 export const useConcurrency = () => {
   const [concurrency, setConcurrency] = useState<number>(10);
   const [results, setResults] = useState<number[]>([]);
@@ -13,7 +15,7 @@ export const useConcurrency = () => {
 
     const sendRequests = async (i: number) => {
       try {
-        const response = await axios.post("http://localhost:5000/api", {
+        const response = await axios.post(URL, {
           index: i,
         });
         setResults((prev) => [...prev, response.data.index]);
